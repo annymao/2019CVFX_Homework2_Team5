@@ -118,7 +118,7 @@ FastPhotoStyle 會將處理程序拆分為風格轉化（Stylization）與平滑
 4. CycleGAN: domain x與 domain y映射到各自的 latent space，轉換出各自對應的圖片，然而，此方法只有在兩個domain有相似的 visual content 才能成功進行轉換，例如馬與斑馬、蘋果與橘子，但無法實現貓與狗的轉換。
 5. FashPhotoStyle適合用來作色調上的轉換，類似套濾鏡的概念，無法對圖片的內容本身做變化。因此在cat2dog的情況下沒辦法達到其他演算法的效果
 <br>
-以下為 FastPhoto、DRIT、MUNIT 的結果比較<br>
+以下為 FastPhoto、DRIT、MUNIT、CycleGAN 的結果比較<br>
 <img src="./Images/compare.jpg" width="600px" />
 就結果來說我們認為 CycleGAN 的結果最好，圖片看起來比較真實，但就清晰度來說 CycleGAN 跟 DRIT 相對來說都還不錯，MUNIT 的結果就有點模糊。
 
