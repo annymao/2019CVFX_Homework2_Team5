@@ -16,7 +16,7 @@
 ### Cat2Dog
 接下來我們還 train 了貓跟狗的 dataset,共 train 了 180000 個 epoch,以下為 test 產生出來的結果<br>
 <img src="./Images/c2d_all.jpg" width="800px" />
-<img src="./Images/d2c_all.jpg" width="800px" />
+<img src="./Images/dog2cat_all.jpg" width="800px" />
 <br>
 以下為我們用自己的圖片去 inference 的結果<br>
 <img src="./Images/cat2dog.png" width="800px" />
