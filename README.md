@@ -8,15 +8,14 @@
 ### Summer2Winter 
 我們一共 train 了 12 萬個 epoch 結果如下 <br>
 <img src="./Images/summer2winter.png" width="400px" />
-<br>
 <img src="./Images/winter2summer.png" width="400px" />
 <br>
 由上面的結果可以看出train到這裡已經很有效果了，summer2winter 這個 dataset 相對於其他 dataset 來說我們覺得更容易得到比較好的結果，因為整體來說只需要學到色系上的變化就可以得到不錯的成果。
 
 ### Cat2Dog
 接下來我們還 train 了貓跟狗的 dataset,共 train 了 180000 個 epoch,以下為 test 產生出來的結果<br>
-<img src="./Images/c2d_all.jpg" width="400px" />
-<img src="./Images/dog2cat_all.jpg" width="400px" />
+<img src="./Images/c2d_all.jpg" width="800px" />
+<img src="./Images/dog2cat_all.jpg" width="800px" />
 <br>
 以下為我們用自己的圖片去 inference 的結果<br>
 <img src="./Images/cat2dog.png" width="400px" />
