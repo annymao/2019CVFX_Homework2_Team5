@@ -79,7 +79,7 @@ DRIT 的架構利用了 4 個 Encoder 來分別學習兩種風格圖像的風格
 透過調整 content 以及 style 之間的 weight ，或是選取不同的 contents、style layer 都可以對圖片產生不同的效果，以下是我們產生的結果。
 <br>
 <img src="./Images/wonder-woman1.jpg" width="600px" />
-<img src="./Images/wonder-woman1.jpg" width="600px" />
+<img src="./Images/wonder-woman2.jpg" width="600px" />
 
 ### FastPhoto
 FastPhotoStyle 會將處理程序拆分為風格轉化（Stylization）與平滑化（Smoothing）等兩步驟，在風格轉化階段，程式會分析來源照片的風格，並套用至目標照片。接下來的平滑化階段，程式則會強化圖片空間的一致性，發揮降低破綻的效果。
