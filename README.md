@@ -47,6 +47,7 @@
 <br>
 DRIT 的架構利用了 4 個 Encoder 來分別學習兩種風格圖像的風格以及特徵。為了如前述所說的讓 content encoder 能夠不包含 attribute，則使兩個 encoder 的最後一個 layer 共享，保證分佈一致，不因 attribute 不同有所差異。並且
 在 content space 上加上一個 content discriminator，兩個 encoder 希望可以欺騙 discriminator 讓他分辨不出來是哪一類的向量。
+
 ### FastPhoto
 ## 結論
 
