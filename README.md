@@ -33,8 +33,16 @@
 <br>
 
 ## Compare With Other Method
-### UNIT
 
+### UNIT
+<img src="./Images/UNIT.png" width="600px" />
+<br>
+UNIT 希望能夠透過 latent space，讓 model 學會兩種風格的特徵，再藉由這些特徵來生成我們所期望的圖片。
+他的架構一共分為：
+1. 2 個 Encoder: 學習兩種 style 的特徵
+2. latent space: 透過 encoder 後幾層以及 decoder 前幾層的 weight sharing 來學習 latent space
+3. 2 個 decoder:學習如何從 latent space 中找出各自的特徵還原出想要的結果
+4. discrminator: 用來判定生成結果的好壞
 ### MUNIT
 本次作業的方法即為使用 MUNIT。<br>
 相較於UNIT(Unsupervised Image-to-Image Translation)一對一的圖片輸出，MUNIT的方法則能更進一步針對一張輸入圖片，轉換出多種不同風格的圖片輸出。
