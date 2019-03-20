@@ -72,13 +72,55 @@ DRIT 的架構利用了 4 個 Encoder 來分別學習兩種風格圖像的風格
 <img src="./Images/DRIT_yosemite.png" width="600px" />
 <br>
 
-### FastPhoto
+### Neural-Style
+這個方法為利用卷積神經網路 （VGG network) 來分別做 content 與 style 的重建，在合成圖片的時候達到圖片 content loss+style loss 的最小化。<br>
+1. content feature: 將 content image 輸入 VGG 中，提取 VGG 中 CONTENT_LAYERS 的 activation output 來作為 content feature
+2. style feature: 透過計算多個 VGG 中不同層之間的關聯，去重建輸入圖像的風格（gram matrix) ，藉由這些 feature 我們可以得到圖片的 texture 訊息。
+透過調整 content 以及 style 之間的 weight ，或是選取不同的 contents、style layer 都可以對圖片產生不同的效果，以下是我們產生的結果。
+<br>
+<img src="./Images/wonder-woman1.jpg" width="600px" />
+<img src="./Images/wonder-woman1.jpg" width="600px" />
 
+### FastPhoto
+FastPhotoStyle 會將處理程序拆分為風格轉化（Stylization）與平滑化（Smoothing）等兩步驟，在風格轉化階段，程式會分析來源照片的風格，並套用至目標照片。接下來的平滑化階段，程式則會強化圖片空間的一致性，發揮降低破綻的效果。
+<br>
+<img src="./Images/fast1.png" width="600px" />
+<br>
+1. Stylization <br>
+<img src="./Images/fast2.png" width="600px" />
+<br>
+在WCT中因為max-pooling和upsampling過程中會喪失許多圖片細節。此篇paper中使用PhotoWCT，也就是用max pooling mask和unpooling取代原本的方法來保留更多空間資訊
+
+2. Smoothing <br>
+為了讓圖片看起來能夠更自然，在這個階段他們會比較一個pixel和附近pixel的風格，使其盡量和鄰居保持一致，但仍然要確保不過度偏移原本的圖片。這兩項目標可以濃縮成下面的式子：<br>
+<img src="./Images/fast3.png" width="600px" />
+<br>
+
+4. Inference <br>
+我們採用的是Tutorial中的Example3: Transfer the style of a style photo to a content photo with automatically generated semantic label maps。第三種方法跟前兩種不同的地方在於它使用segmentation來保留更多空間資訊，以取得更好的轉換效果。<br>
+<img src="./Images/fast4.png" width="600px" />
+<img src="./Images/fast7.png" width="600px" />
+<br>
+由上圖中的結果可以看到，FastPhotoStyle 看起來主要是在做 color 上的 transfer，應用在貓狗轉換上也只有毛色上的變化，貓的形體還是在的，他的架構並不涉及「生成」的部分。
+<br>
+由於OS的問題，無法執行最後的post-processing。<br>
+<img src="./Images/fast5.png" width="600px" />
+<br>
+因此只完成了stylization和propagation的部分。
+<br>
+<img src="./Images/fast6.png" width="600px" />
 
 ## 結論
 四種方法綜合比較如下：
-1. UNIT: 將domain x與domain y的圖片映射到同一個latent space，再從中產生相對應的圖片輸出
-2. MUNIT: 將domain x與domain y的圖片映射到共享的content space及各自的style space，根據採樣的style code不同，會有不同風格的輸出。
-3. DRIT: 將domain x與 domain y的圖片映射到共享的content space及各自的attribute space（MUNIT中的style space），得到對應的輸出。
+1. UNIT: 將 domain x 與 domain y 的圖片映射到同一個 latent space，decoder 再從中找出各自的特徵，產生一張相對應的圖片輸出。
+2. 將 domain x 與 domain y 的圖片映射到共享的 content space 及各自的style space，根據採樣的 style code 不同，會有多張不同風格的輸出。
+3. DRIT: 將domain x與 domain y的圖片映射到共享的 content space 及各自的 attribute space（MUNIT中 的 style space），得到多張對應的輸出。
+4. CycleGAN: domain x與 domain y映射到各自的 latent space，轉換出各自對應的圖片，然而，此方法只有在兩個domain有相似的 visual content 才能成功進行轉換，例如馬與斑馬、蘋果與橘子，但無法實現貓與狗的轉換。
+5. FashPhotoStyle適合用來作色調上的轉換，類似套濾鏡的概念，無法對圖片的內容本身做變化。因此在cat2dog的情況下沒辦法達到其他演算法的效果
+<br>
+以下為 FastPhoto、DRIT、MUNIT 的結果比較<br>
+<img src="./Images/compare.jpg" width="600px" />
+就結果來說我們認為 CycleGAN 的結果最好，圖片看起來比較真實，但就清晰度來說 CycleGAN 跟 DRIT 相對來說都還不錯，MUNIT 的結果就有點模糊。
+
 
 
