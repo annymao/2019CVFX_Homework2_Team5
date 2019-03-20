@@ -43,6 +43,7 @@ UNIT 希望能夠透過 latent space，讓 model 學會兩種風格的特徵，�
 2. latent space: 透過 encoder 後幾層以及 decoder 前幾層的 weight sharing 來學習 latent space
 3. 2 個 decoder:學習如何從 latent space 中找出各自的特徵還原出想要的結果
 4. discrminator: 用來判定生成結果的好壞
+
 ### MUNIT
 本次作業的方法即為使用 MUNIT。<br>
 相較於UNIT(Unsupervised Image-to-Image Translation)一對一的圖片輸出，MUNIT的方法則能更進一步針對一張輸入圖片，轉換出多種不同風格的圖片輸出。
@@ -57,6 +58,8 @@ DRIT 的架構利用了 4 個 Encoder 來分別學習兩種風格圖像的風格
 在 content space 上加上一個 content discriminator，兩個 encoder 希望可以欺騙 discriminator 讓他分辨不出來是哪一類的向量。
 
 ### FastPhoto
+
+
 ## 結論
 
 
