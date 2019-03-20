@@ -10,7 +10,7 @@
 <img src="./Images/summer2winter.png" width="400px" />
 <img src="./Images/winter2summer.png" width="400px" />
 <br>
-由上面的結果可以看出train到這裡已經很有效果了，summer2winter 這個 dataset 相對於其他 dataset 來說我們覺得更容易得到比較好的結果，因為整體來說只需要學到色系上的變化就可以得到不錯的成果。
+由上面的結果可以看出train到這裡已經很有效果了，summer2winter 這個 dataset 相對於其他 dataset 來說我們覺得更容易得到比較好的結果，因為整體來說只需要學到色系上的變化就可以得到不錯的成果，不過圖片看起來會有些模糊。
 
 ### Cat2Dog
 接下來我們還 train 了貓跟狗的 dataset,共 train 了 180000 個 epoch,以下為 test 產生出來的結果<br>
@@ -56,11 +56,29 @@ UNIT 希望能夠透過 latent space，讓 model 學會兩種風格的特徵，�
 <br>
 DRIT 的架構利用了 4 個 Encoder 來分別學習兩種風格圖像的風格以及特徵。為了如前述所說的讓 content encoder 能夠不包含 attribute，則使兩個 encoder 的最後一個 layer 共享，保證分佈一致，不因 attribute 不同有所差異。並且
 在 content space 上加上一個 content discriminator，兩個 encoder 希望可以欺騙 discriminator 讓他分辨不出來是哪一類的向量。
+<br>
+以下為我們訓練後產生的結果
+<img src="./Images/drit_c2d.png" width="600px" />
+由於我們使用跟 MUNIT 相同的 cat2dog dataset，故在轉換上也有非此 dataset 的貓無法正常轉換的問題，但可以發現鼻子的部分都有出現，可能也是因為鼻子的特徵比較明顯。
+<br>
+在正常轉換的情況下，用 DRIT 轉換出來的結果比較有從原本的貓轉過去的感覺，他的毛色還是保有一點原本的特征，而而 MUNIT 的結果就是直接轉成哈士奇或薩摩耶
+<br>
+而如果我們使用這個方法去指定 style 的結果如下<br>
+<img src="./Images/dritStyle_c2d.png" width="600px" />
+<br>
+無論我們 style 放了哈士奇還是薩摩耶，轉換出來的結果都是哈士奇，可見他在狗狗特徵的部分，學習到的特征多為哈士奇。
+<br>
+下圖為我們將 DRIT 應用在 summer2winter 上的結果，看起來效果還是比貓狗好的。而且產生的結果也比 MUNIT 來的清楚。
+<img src="./Images/DRIT_yosemite.png" width="600px" />
+<br>
 
 ### FastPhoto
 
 
 ## 結論
-
+四種方法綜合比較如下：
+1. UNIT: 將domain x與domain y的圖片映射到同一個latent space，再從中產生相對應的圖片輸出
+2. MUNIT: 將domain x與domain y的圖片映射到共享的content space及各自的style space，根據採樣的style code不同，會有不同風格的輸出。
+3. DRIT: 將domain x與 domain y的圖片映射到共享的content space及各自的attribute space（MUNIT中的style space），得到對應的輸出。
 
 
